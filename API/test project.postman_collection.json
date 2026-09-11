@@ -1,0 +1,311 @@
+{
+  "info": {
+    "_postman_id": "3e3cddb7-2c95-4259-8514-3f85c53150cb",
+    "name": "test project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57618190",
+    "_collection_link": "https://go.postman.co/collection/57618190-3e3cddb7-2c95-4259-8514-3f85c53150cb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get messages testing",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://automationintesting.online/api/message",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "message"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post Positive testing message",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validare QA: Serverul a respins corect datele invalide\", function () {\r",
+              "    pm.response.to.have.status(200); \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"George QA\",\r\n    \"email\": \"george.test@gmail.com\",\r\n    \"phone\": \"072147126136\",\r\n    \"subject\": \"Testare din Postman\",\r\n    \"description\": \"test test test test test test post.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/message",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "message"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post Negative testing message",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validare QA: Serverul a respins corect datele invalide\", function () {\r",
+              "    pm.response.to.have.status(400); \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "packages": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"George QA\",\r\n    \"email\": \"george.test@gmail.com\",\r\n    \"phone\": \"072147126136\",\r\n    \"subject\": \"Testare din Postman\",\r\n    \"description\": \"post.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/message",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "message"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var raspunsServer = pm.response.json();\r",
+              "pm.collectionVariables.set(\"cheie_securitate\", raspunsServer.token);\r",
+              "pm.test(\"Validare QA: Token-ul a fost generat și salvat\", function () {\r",
+              "    pm.expect(raspunsServer.token).to.not.be.undefined;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete message",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{cheie_securitate}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://automationintesting.online/api/message/5",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "message",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Put rooms testing",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "cookie",
+            "value": "token={{cheie_securitate}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"accessible\": true,\r\n    \"description\": \"Aenean porttitor mauris sit amet lacinia molestie. In posuere accumsan aliquet. Maecenas sit amet nisl massa. Interdum et malesuada fames ac ante.\",\r\n    \"features\": [\r\n        \"TV\",\r\n        \"WiFi\",\r\n        \"Safe\"\r\n    ],\r\n    \"image\": \"/images/room1.jpg\",\r\n    \"roomName\": \"101\",\r\n    \"roomPrice\": 100,\r\n    \"roomid\": 1,\r\n    \"type\": \"Single\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/room/1",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "room",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get room testing",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/room/1",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "room",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patch room testing",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{cheie_securitate}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Accessible\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://automationintesting.online/api/room/1",
+          "protocol": "https",
+          "host": [
+            "automationintesting",
+            "online"
+          ],
+          "path": [
+            "api",
+            "room",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "cheie_securitate",
+      "value": ""
+    }
+  ]
+}
